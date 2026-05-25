@@ -1,0 +1,4 @@
+// App configuration
+const CONFIG = {
+
+};

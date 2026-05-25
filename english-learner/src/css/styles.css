@@ -1,0 +1,454 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+header h1 {
+    margin: 0 0 12px 0;
+    font-size: 1.8em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 8px;
+}
+
+nav ul li a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #2E7D32;
+    font-size: 1.5em;
+}
+
+/* Lesson tabs */
+#lesson-select {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.lesson-tab {
+    padding: 8px 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 20px;
+    background: white;
+    color: #4CAF50;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.lesson-tab:hover,
+.lesson-tab.active {
+    background: #4CAF50;
+    color: white;
+}
+
+/* Vocabulary cards */
+.vocab-card {
+    background: white;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border-left: 4px solid #4CAF50;
+    transition: transform 0.2s;
+}
+
+.vocab-card:hover {
+    transform: translateX(4px);
+}
+
+.vocab-card .word {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2E7D32;
+    margin-bottom: 4px;
+}
+
+.vocab-card .definition {
+    color: #555;
+    font-size: 0.95em;
+}
+
+/* Quiz */
+#quiz-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+#quiz-intro {
+    text-align: center;
+    padding: 20px;
+}
+
+#quiz-intro p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.button {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76,175,80,0.4);
+}
+
+#quiz-step {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 16px;
+    display: block;
+}
+
+#question {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#options button {
+    padding: 14px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+#options button:hover {
+    border-color: #4CAF50;
+    background: #f1f8e9;
+}
+
+#options button.correct {
+    border-color: #4CAF50;
+    background: #c8e6c9;
+    color: #1b5e20;
+}
+
+#options button.wrong {
+    border-color: #f44336;
+    background: #ffcdd2;
+    color: #b71c1c;
+}
+
+/* Quiz results */
+#quiz-results {
+    text-align: center;
+    padding: 20px;
+}
+
+#quiz-results h3 {
+    font-size: 1.4em;
+    color: #2E7D32;
+}
+
+.score-display {
+    font-size: 3em;
+    font-weight: 700;
+    color: #4CAF50;
+    margin: 16px 0;
+}
+
+/* Progress */
+#progress-tracker {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.progress-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.progress-item:last-child {
+    border-bottom: none;
+}
+
+.progress-label {
+    font-weight: 500;
+}
+
+.progress-value {
+    color: #4CAF50;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #81C784);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+/* Chat */
+#chat-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow: hidden;
+}
+
+#chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    line-height: 1.4;
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.message.assistant {
+    align-self: flex-start;
+    background: #e8f5e9;
+    color: #1b5e20;
+    border-bottom-left-radius: 4px;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: #4CAF50;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.message.typing {
+    align-self: flex-start;
+    background: #e8f5e9;
+    color: #777;
+    font-style: italic;
+}
+
+#chat-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid #eee;
+    align-items: center;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 24px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#chat-input:focus {
+    border-color: #4CAF50;
+}
+
+#mic-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    background: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mic-button:hover {
+    border-color: #4CAF50;
+    background: #f1f8e9;
+}
+
+#mic-button.recording {
+    border-color: #f44336;
+    background: #ffebee;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#send-button {
+    padding: 12px 20px;
+    border-radius: 24px;
+}
+
+/* Settings */
+.settings-container {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.settings-info {
+    color: #555;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.settings-field {
+    margin-bottom: 20px;
+}
+
+.settings-field label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.settings-hint {
+    font-size: 0.85em;
+    color: #777;
+    margin: 4px 0 10px 0;
+}
+
+.settings-hint a {
+    color: #4CAF50;
+}
+
+.settings-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.settings-input-row input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.settings-input-row input:focus {
+    border-color: #4CAF50;
+}
+
+.settings-status {
+    font-size: 0.85em;
+    margin-top: 8px;
+    color: #4CAF50;
+}
+
+.button-secondary {
+    background: white;
+    color: #666;
+    padding: 10px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+}
+
+.button-secondary:hover {
+    border-color: #f44336;
+    color: #f44336;
+}

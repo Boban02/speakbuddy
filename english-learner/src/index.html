@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learner</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>English Learner</h1>
+        <nav>
+            <ul>
+                <li><a href="#" data-section="chat" class="nav-link active">Chat</a></li>
+                <li><a href="#" data-section="vocabulary" class="nav-link">Vocabulary</a></li>
+                <li><a href="#" data-section="quiz" class="nav-link">Quiz</a></li>
+                <li><a href="#" data-section="progress" class="nav-link">Progress</a></li>
+                <li><a href="#" data-section="settings" class="nav-link">⚙️</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section id="chat" class="section active">
+            <h2>Speak with your English Tutor</h2>
+            <div id="chat-container">
+                <div id="chat-messages"></div>
+                <div id="chat-input-area">
+                    <button id="mic-button" title="Hold to speak">🎤</button>
+                    <input type="text" id="chat-input" placeholder="Type or speak your message..." autocomplete="off">
+                    <button id="send-button" class="button">Send</button>
+                </div>
+            </div>
+        </section>
+        <section id="vocabulary" class="section">
+            <h2>Vocabulary</h2>
+            <div id="lesson-select"></div>
+            <div id="vocabulary-list"></div>
+        </section>
+        <section id="quiz" class="section">
+            <h2>Quiz</h2>
+            <div id="quiz-container">
+                <div id="quiz-intro">
+                    <p>Test your knowledge with a quiz!</p>
+                    <button id="start-quiz" class="button">Start Quiz</button>
+                </div>
+                <div id="quiz-active" style="display:none;">
+                    <div id="quiz-progress-bar"><span id="quiz-step"></span></div>
+                    <div id="question"></div>
+                    <div id="options"></div>
+                </div>
+                <div id="quiz-results" style="display:none;"></div>
+            </div>
+        </section>
+        <section id="progress" class="section">
+            <h2>Your Progress</h2>
+            <div id="progress-tracker"></div>
+        </section>
+        <section id="settings" class="section">
+            <h2>Settings</h2>
+            <div class="settings-container">
+                <p class="settings-info">The app works out of the box! If you experience rate limits, you can add your own free API key below.</p>
+                <div class="settings-field">
+                    <label for="user-api-key">Your Groq API Key (optional)</label>
+                    <p class="settings-hint">Get a free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a></p>
+                    <div class="settings-input-row">
+                        <input type="password" id="user-api-key" placeholder="gsk_...">
+                        <button id="save-api-key" class="button">Save</button>
+                    </div>
+                    <p id="key-status" class="settings-status"></p>
+                </div>
+                <div class="settings-field">
+                    <button id="clear-api-key" class="button-secondary">Reset to default key</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 English Learner</p>
+    </footer>
+    <script src="config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

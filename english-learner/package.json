@@ -1,0 +1,23 @@
+{
+  "name": "english-learner",
+  "version": "1.0.0",
+  "description": "An interactive English learning application.",
+  "main": "src/js/app.js",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build step not defined'",
+    "test": "echo 'No tests defined'"
+  },
+  "keywords": [
+    "english",
+    "learning",
+    "education",
+    "interactive"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}

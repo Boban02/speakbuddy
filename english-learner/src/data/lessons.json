@@ -1,0 +1,56 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Introduction to English",
+      "vocabulary": [
+        {
+          "word": "Hello",
+          "definition": "A greeting used to begin a conversation."
+        },
+        {
+          "word": "Goodbye",
+          "definition": "A phrase used to express farewell."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the English word for 'Hola'?",
+          "options": ["Hello", "Goodbye", "Thank you"],
+          "answer": "Hello"
+        },
+        {
+          "question": "What does 'Goodbye' mean?",
+          "options": ["A greeting", "A farewell", "A question"],
+          "answer": "A farewell"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Basic Grammar",
+      "vocabulary": [
+        {
+          "word": "Noun",
+          "definition": "A word that represents a person, place, thing, or idea."
+        },
+        {
+          "word": "Verb",
+          "definition": "A word that describes an action or state."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is a noun?",
+          "options": ["A word that describes an action", "A word that represents a person, place, thing, or idea", "A type of sentence"],
+          "answer": "A word that represents a person, place, thing, or idea"
+        },
+        {
+          "question": "Which of the following is a verb?",
+          "options": ["Run", "Beautiful", "Happiness"],
+          "answer": "Run"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "build"
+		},
+		{
+			"path": "english-learner"
+		},
+		{
+			"path": "src"
+		},
+		{
+			"path": ".vscode"
+		}
+	],
+	"settings": {}
+}
