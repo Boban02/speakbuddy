@@ -196,16 +196,8 @@
         retryCount = retryCount || 0;
         showTypingIndicator();
 
-        const provider = (typeof CONFIG !== 'undefined' && CONFIG.PROVIDER) || 'gemini';
-
         try {
-            let reply;
-            if (provider === 'groq') {
-                reply = await callGroq(retryCount);
-            } else {
-                reply = await callGemini(retryCount);
-            }
-
+            const reply = await callChat(retryCount);
             if (reply) {
                 removeTypingIndicator();
                 chatHistory.push({ role: 'model', parts: [{ text: reply }] });
@@ -218,19 +210,7 @@
         }
     }
 
-    function getGroqKey() {
-        // User's own key takes priority, then fall back to default
-        return localStorage.getItem('userGroqKey') || CONFIG.GROQ_API_KEY;
-    }
-
-    async function callGroq(retryCount) {
-        const apiKey = getGroqKey();
-        if (!apiKey || apiKey === 'YOUR_GROQ_API_KEY_HERE') {
-            removeTypingIndicator();
-            addMessage('assistant', '⚠️ No API key available. Go to ⚙️ Settings and add your free Groq key.');
-            return null;
-        }
-
+    async function callChat(retryCount) {
         const messages = [
             { role: 'system', content: SYSTEM_PROMPT },
             ...chatHistory.map(m => ({
@@ -239,18 +219,14 @@
             }))
         ];
 
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const body = { messages };
+        const userKey = localStorage.getItem('userGroqKey');
+        if (userKey) body.userApiKey = userKey;
+
+        const response = await fetch('/.netlify/functions/chat', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: 'llama-3.3-70b-versatile',
-                messages: messages,
-                temperature: 0.7,
-                max_tokens: 200
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
         });
 
         if (response.status === 429) {
@@ -260,7 +236,7 @@
                 addMessage('assistant', `⏳ Rate limited. Retrying in ${waitSeconds}s...`);
                 await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
                 document.getElementById('chat-messages').lastChild.remove();
-                return callGroq(retryCount + 1);
+                return callChat(retryCount + 1);
             }
             removeTypingIndicator();
             addMessage('assistant', '⚠️ Rate limit reached. Wait a moment or go to ⚙️ Settings to add your own free Groq key for higher limits.');
@@ -270,68 +246,11 @@
         const data = await response.json();
         if (!response.ok) {
             removeTypingIndicator();
-            addMessage('assistant', '⚠️ API error: ' + (data.error?.message || response.statusText));
+            addMessage('assistant', '⚠️ ' + (data.error || 'API error: ' + response.statusText));
             return null;
         }
 
         return data.choices[0].message.content;
-    }
-
-    async function callGemini(retryCount) {
-        const apiKey = CONFIG.GOOGLE_API_KEY;
-        if (!apiKey) {
-            removeTypingIndicator();
-            addMessage('assistant', '⚠️ Google API key not configured in config.js');
-            return null;
-        }
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-        const body = {
-            contents: [
-                { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
-                { role: 'model', parts: [{ text: "Hi! I'm Buddy, your English tutor. I'm ready to help you practice!" }] },
-                ...chatHistory
-            ],
-            generationConfig: {
-                temperature: 0.7,
-                maxOutputTokens: 200
-            }
-        };
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (response.status === 429) {
-            if (retryCount < 3) {
-                removeTypingIndicator();
-                const waitSeconds = (retryCount + 1) * 5;
-                addMessage('assistant', `⏳ Rate limited. Retrying in ${waitSeconds}s...`);
-                await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
-                document.getElementById('chat-messages').lastChild.remove();
-                return callGemini(retryCount + 1);
-            }
-            removeTypingIndicator();
-            addMessage('assistant', '⚠️ Rate limit reached. Please wait a moment and try again.');
-            return null;
-        }
-
-        const data = await response.json();
-        if (!response.ok) {
-            removeTypingIndicator();
-            addMessage('assistant', '⚠️ API error: ' + (data.error?.message || response.statusText));
-            return null;
-        }
-
-        if (data.candidates && data.candidates[0].content) {
-            return data.candidates[0].content.parts[0].text;
-        }
-        removeTypingIndicator();
-        addMessage('assistant', 'Sorry, I had trouble responding. Please try again.');
-        return null;
     }
 
     // Text-to-speech for AI responses
