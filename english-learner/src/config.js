@@ -1,6 +1,6 @@
 // App configuration
 const CONFIG = {
     PROVIDER: 'groq',
-    GROQ_API_KEY: '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',
-    GOOGLE_API_KEY: 'AIzaSyBbQaQpIglLXNr8-rMW5sfTLy1JlIeQcY4'
+    GROQ_API_KEY: process.env.GROQ_API_KEY || 'YOUR_GROQ_API_KEY',
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || 'YOUR_GOOGLE_API_KEY'
 };
